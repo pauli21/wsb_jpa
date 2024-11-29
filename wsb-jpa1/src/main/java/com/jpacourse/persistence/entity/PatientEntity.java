@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+
 
 @Entity
 @Table(name = "PATIENT")
@@ -33,6 +36,17 @@ public class PatientEntity {
 
 	@Column(nullable = false)
 	private LocalDate dateOfBirth;
+
+	/**
+	 * Relacja jednostronna z {@link AddressEntity}, w której klasa PatientEntity
+	 * jest stroną zależną (dziecko). Każdy pacjent ma przypisany dokładnie jeden adres.
+	 *
+	 * <p>Kolumna {@code address_id} w tabeli reprezentuje klucz obcy wskazujący na encję AddressEntity.
+	 * Adres jest wymagany, dlatego atrybut {@code nullable} jest ustawiony na {@code false}.
+	 */
+	@ManyToOne
+	@JoinColumn(name = "address_id", nullable = false)
+	private AddressEntity address;
 
 	public Long getId() {
 		return id;

@@ -5,6 +5,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.OneToMany;
+import javax.persistence.CascadeType;
+import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "ADDRESS")
@@ -21,6 +25,28 @@ public class AddressEntity {
 	private String addressLine2;
 
 	private String postalCode;
+
+	/**
+	 * Relacja dwukierunkowa z {@link DoctorEntity}, w której klasa AddressEntity
+	 * jest stroną nadrzędną (rodzic). Adres może być przypisany do wielu lekarzy.
+	 *
+	 * <p>Pole {@code doctors} reprezentuje listę lekarzy powiązanych z danym adresem.
+	 * Atrybut {@code mappedBy = "address"} wskazuje, że właścicielem relacji jest klasa DoctorEntity.
+	 * Dzięki {@code CascadeType.ALL} operacje na encji AddressEntity propagują się na powiązanych lekarzy.
+	 */
+	@OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
+	private List<DoctorEntity> doctors = new ArrayList<>();
+
+	/**
+	 * Relacja dwukierunkowa z {@link PatientEntity}, w której klasa AddressEntity
+	 * jest stroną nadrzędną (rodzic). Adres może być przypisany do wielu pacjentów.
+	 *
+	 * <p>Pole {@code patients} reprezentuje listę pacjentów powiązanych z danym adresem.
+	 * Atrybut {@code mappedBy = "address"} wskazuje, że właścicielem relacji jest klasa PatientEntity.
+	 * Dzięki {@code CascadeType.ALL} operacje na encji AddressEntity propagują się na powiązanych pacjentów.
+	 */
+	@OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
+	private List<PatientEntity> patients = new ArrayList<>();
 
 	public Long getId() {
 		return id;
