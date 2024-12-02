@@ -1,15 +1,12 @@
 package com.jpacourse.persistence.entity;
 
 import com.jpacourse.persistence.enums.TreatmentType;
+import com.jpacourse.persistence.entity.VisitEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import javax.persistence.*;
+import java.util.List;  // Import List
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "MEDICAL_TREATMENT")
@@ -25,6 +22,13 @@ public class MedicalTreatmentEntity {
 	@Enumerated(EnumType.STRING)
 	private TreatmentType type;
 
+
+
+
+	@OneToMany(mappedBy = "medicalTreatment", cascade = CascadeType.ALL, orphanRemoval = true)
+
+	private List<VisitEntity> visit = new ArrayList<>();
+
 	public Long getId() {
 		return id;
 	}
@@ -37,8 +41,7 @@ public class MedicalTreatmentEntity {
 		return description;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescription(String description) {this.description = description;
 	}
 
 	public TreatmentType getType() {
@@ -49,4 +52,12 @@ public class MedicalTreatmentEntity {
 		this.type = type;
 	}
 
+	public List<VisitEntity> getVisits() {
+		return visit;
+	}
+
+	// Metoda ustawiająca listę wizyt
+	public void setVisits(List<VisitEntity> visits) {
+		this.visit = visits;
+	}
 }

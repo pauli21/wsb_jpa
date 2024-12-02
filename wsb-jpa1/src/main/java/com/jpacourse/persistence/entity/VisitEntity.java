@@ -1,15 +1,8 @@
 package com.jpacourse.persistence.entity;
 
 import java.time.LocalDateTime;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.ManyToOne;
-import javax.persistence.JoinColumn;
+import java.util.List;
+import javax.persistence.*;
 
 
 @Entity
@@ -47,16 +40,14 @@ public class VisitEntity {
 	@JoinColumn(name = "patient_id", nullable = false)
 	private PatientEntity patient;
 
-	/**
-	 * Relacja jednostronna z {@link MedicalTreatmentEntity}, w której klasa VisitEntity
-	 * jest stroną zależną (dziecko). Każda wizyta musi być powiązana z jednym zabiegiem medycznym.
-	 *
-	 * <p>Kolumna {@code treatment_id} w tabeli reprezentuje klucz obcy wskazujący na encję MedicalTreatmentEntity.
-	 * Adnotacja {@code nullable = false} wymusza obecność zabiegu dla każdej wizyty.
-	 */
+
+
 	@ManyToOne
 	@JoinColumn(name = "treatment_id", nullable = false)
 	private MedicalTreatmentEntity medicalTreatment;
+
+
+
 
 	public Long getId() {
 		return id;
@@ -82,4 +73,28 @@ public class VisitEntity {
 		this.time = time;
 	}
 
+	public DoctorEntity getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(DoctorEntity doctor) {
+		this.doctor = doctor;
+	}
+
+	public PatientEntity getPatient() {
+		return patient;
+	}
+
+	public void setPatient(PatientEntity patient) {
+		this.patient = patient;
+	}
+
+
+	public MedicalTreatmentEntity getMedicalTreatment() {
+		return medicalTreatment;
+	}
+
+	public void setMedicalTreatment(MedicalTreatmentEntity medicalTreatment) {
+		this.medicalTreatment = medicalTreatment;
+	}
 }

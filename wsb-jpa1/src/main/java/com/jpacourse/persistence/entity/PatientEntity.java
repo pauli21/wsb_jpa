@@ -9,8 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.JoinColumn;
-
+import javax.persistence.CascadeType;
+import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "PATIENT")
@@ -38,6 +41,12 @@ public class PatientEntity {
 	private LocalDate dateOfBirth;
 
 	/**
+	 * Nowe pole z ubezpieczeniem
+	 */
+	private Boolean isInsured;
+
+
+	/**
 	 * Relacja jednostronna z {@link AddressEntity}, w której klasa PatientEntity
 	 * jest stroną zależną (dziecko). Każdy pacjent ma przypisany dokładnie jeden adres.
 	 *
@@ -47,6 +56,21 @@ public class PatientEntity {
 	@ManyToOne
 	@JoinColumn(name = "address_id", nullable = false)
 	private AddressEntity address;
+
+	/**
+	 * Lista wizyt powiązanych z danym pacjentem.
+	 *
+	 * <p>Relacja dwukierunkowa z {@link VisitEntity}, gdzie klasa PatientEntity
+	 * jest stroną nadrzędną (rodzic), a klasa VisitEntity jest właścicielem relacji.
+	 *
+	 * <p>Atrybut {@code mappedBy = "patient"} wskazuje, że właścicielem relacji jest pole
+	 * {@code patient} w klasie VisitEntity. Dzięki {@code CascadeType.ALL} wszystkie operacje
+	 * na pacjencie są kaskadowo wykonywane na powiązanych wizytach.
+	 * Opcja {@code orphanRemoval = true} zapewnia usunięcie wizyt, które zostaną
+	 * usunięte z listy.
+	 */
+	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<VisitEntity> visits = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -102,6 +126,29 @@ public class PatientEntity {
 
 	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
+	}
+	public Boolean getIsInsured() {
+		return isInsured;
+	}
+
+	public void setIsInsured(Boolean isInsured) {
+		this.isInsured = isInsured;
+	}
+
+	public AddressEntity getAddress() {
+		return address;
+	}
+
+	public void setAddress(AddressEntity address) {
+		this.address = address;
+	}
+
+	public List<VisitEntity> getVisits() {
+		return visits;
+	}
+
+	public void setVisits(List<VisitEntity> visits) {
+		this.visits = visits;
 	}
 
 }

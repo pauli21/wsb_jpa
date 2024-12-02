@@ -40,4 +40,14 @@ INSERT INTO VISIT (id, description, time, doctor_id, patient_id, treatment_id) V
 (2, 'Wizyta kardiologiczna', '2024-12-02 11:00:00', 2, 2, 2),
 (3, 'Kontrola pediatryczna', '2024-12-03 12:00:00', 3, 3, 3),
 (4, 'Konsultacja dermatologiczna', '2024-12-04 13:00:00', 4, 4, 4),
-(5, 'Wizyta stomatologiczna', '2024-12-05 14:00:00', 5, 5, 5);
+(5, 'Wizyta stomatologiczna', '2024-12-05 14:00:00', 5, 5, 5),
+(6, 'Wizyta kontrolna u chirurga', '2024-12-06 15:00:00', 1, 1, 2), -- Katarzyna Mazur - chirurg
+(7, 'Konsultacja kardiologiczna', '2024-12-07 09:30:00', 2, 1, 3),     -- Katarzyna Mazur - kardiolog
+(8, 'Wizyta pediatryczna', '2024-12-08 10:00:00', 3, 3, 4),             -- Ewa Bąk - pediatra
+(9, 'Rehabilitacja', '2024-12-09 11:00:00', 2, 4, 5),                   -- Tomasz Szymański - kardiolog
+(10, 'Przegląd stomatologiczny', '2024-12-10 12:00:00', 5, 5, 1),       -- Agnieszka Nowicka - stomatolog
+(11, 'Kontrola dermatologiczna', '2024-12-11 14:00:00', 4, 2, 2),       -- Marek Kowalczyk - dermatolog
+(12, 'Wizyta kontrolna pediatryczna', '2024-12-12 15:00:00', 3, 2, 3),   -- Marek Kowalczyk - pediatra
+(13, 'Wizyta kardiologiczna', '2024-12-13 13:30:00', 2, 5, 4),          -- Agnieszka Nowicka - kardiolog
+(14, 'Konsultacja stomatologiczna', '2024-12-14 16:00:00', 5, 3, 5),    -- Ewa Bąk - stomatolog
+(15, 'Wizyta kontrolna', '2024-12-15 17:00:00', 1, 4, 1);               -- Tomasz Szymański - chirurg
