@@ -70,7 +70,8 @@ public class PatientEntity {
 	 * usunięte z listy.
 	 */
 	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<VisitEntity> visits = new ArrayList<>();
+	private List<VisitEntity> visits ;
+//			= new ArrayList<>();
 
 	public Long getId() {
 		return id;

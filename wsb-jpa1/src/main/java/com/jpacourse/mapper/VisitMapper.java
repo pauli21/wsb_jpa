@@ -19,7 +19,10 @@ public class VisitMapper {
         visitTO.setDescription(visitEntity.getDescription());
         visitTO.setDoctorFirstName(visitEntity.getDoctor().getFirstName());
         visitTO.setDoctorLastName(visitEntity.getDoctor().getLastName());
-
+        visitTO.setTreatmentDescription(
+                visitEntity.getMedicalTreatment() != null ?
+                        visitEntity.getMedicalTreatment().getDescription() : null // Mapowanie opisu leczenia
+        );
 
 
         // Pobieranie opisu zabiegu z pojedynczego obiektu MedicalTreatmentEntity
@@ -28,6 +31,8 @@ public class VisitMapper {
                         Collections.singletonList(visitEntity.getMedicalTreatment().getDescription()) :
                         Collections.emptyList()
         );
+
+
 
         return visitTO;
     }

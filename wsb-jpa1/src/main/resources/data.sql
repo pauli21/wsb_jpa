@@ -12,11 +12,11 @@ INSERT INTO ADDRESS (id, address_line1, address_line2, city, postal_code) VALUES
 
 -- Lekarze
 INSERT INTO DOCTOR (id, first_name, last_name, telephone_number, email, doctor_number, specialization, address_id) VALUES
-(1, 'Jan', 'Kowalski', '123456789', 'jan.kowalski@przyklad.com', 'D001', 'Chirurg', 1),
-(2, 'Anna', 'Nowak', '234567890', 'anna.nowak@przyklad.com', 'D002', 'Kardiolog', 2),
-(3, 'Piotr', 'Zieliński', '345678901', 'piotr.zielinski@przyklad.com', 'D003', 'Pediatra', 3),
-(4, 'Maria', 'Wiśniewska', '456789012', 'maria.wisniewska@przyklad.com', 'D004', 'Dermatolog', 4),
-(5, 'Krzysztof', 'Lewandowski', '567890123', 'krzysztof.lewandowski@przyklad.com', 'D005', 'Stomatolog', 5);
+(1, 'Jan', 'Kowalski', '123456789', 'jan.kowalski@przyklad.com', 'D001', 'SURGEON', 1),
+(2, 'Anna', 'Nowak', '234567890', 'anna.nowak@przyklad.com', 'D002', 'GP', 2),
+(3, 'Piotr', 'Zieliński', '345678901', 'piotr.zielinski@przyklad.com', 'D003', 'DERMATOLOGIST', 3),
+(4, 'Maria', 'Wiśniewska', '456789012', 'maria.wisniewska@przyklad.com', 'D004', 'GP', 4),
+(5, 'Krzysztof', 'Lewandowski', '567890123', 'krzysztof.lewandowski@przyklad.com', 'D005', 'OCULIST', 5);
 
 -- Pacjenci
 INSERT INTO PATIENT (id, first_name, last_name, telephone_number, email, patient_number, date_of_birth, address_id) VALUES
@@ -36,7 +36,7 @@ INSERT INTO MEDICAL_TREATMENT (id, description, type) VALUES
 
 -- Wizyty
 INSERT INTO VISIT (id, description, time, doctor_id, patient_id, treatment_id) VALUES
-(1, 'Kontrola zdrowia', '2024-12-01 10:00:00', 1, 1, 1),
+(1, 'Kontrola', '2024-12-01 10:00:00', 1, 1, 1),
 (2, 'Wizyta kardiologiczna', '2024-12-02 11:00:00', 2, 2, 2),
 (3, 'Kontrola pediatryczna', '2024-12-03 12:00:00', 3, 3, 3),
 (4, 'Konsultacja dermatologiczna', '2024-12-04 13:00:00', 4, 4, 4),

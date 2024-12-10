@@ -65,6 +65,7 @@ public class PatientService {
     @Transactional
     public void deletePatient(Long id) {
         PatientEntity patient = patientDao.findById(id).orElseThrow(() -> new RuntimeException("Patient not found"));
+
         patientDao.delete(patient);
     }
 

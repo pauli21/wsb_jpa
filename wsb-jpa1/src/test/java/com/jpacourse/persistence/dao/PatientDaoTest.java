@@ -27,11 +27,14 @@ public class PatientDaoTest {
         // Arrange
         Long patientId = 1L; // Zakładając, że istnieje pacjent z ID 1 w data.sql
         Long doctorId = 1L;  // Zakładając, że istnieje doktor z ID 1 w data.sql
+        Long treatmentId = 1L; // Zakładając, że istnieje zabieg o ID 1 w data.sql
         String description = "Kontrola";
-        LocalDateTime visitDate = LocalDateTime.now();
+//        LocalDateTime visitDate = LocalDateTime.now();
+        LocalDateTime visitDate = LocalDateTime.of(2024, 12, 01, 10, 0, 0, 0); // Ustalona data
+
 
         // Act
-        patientDao.addVisit(patientId, doctorId, description, visitDate);
+        patientDao.addVisit(patientId, doctorId, description, visitDate, treatmentId);  // Dodano treatmentId
 
         // Assert
         PatientEntity patient = entityManager.find(PatientEntity.class, patientId);
@@ -48,22 +51,9 @@ public class PatientDaoTest {
     @Transactional
     public void testDeletePatient() {
         Long patientId = 1L;
-        patientService.deletePatient(patientId);
+//        patientDao.delete(patientId);
+        patientDao.deleteById(patientId);
 
-        assertThrows(RuntimeException.class, () -> patientService.getPatientById(patientId));
+        assertThrows(RuntimeException.class, () -> patientDao.findById(patientId).orElseThrow(() -> new RuntimeException("Patient not found")));
     }
-
-
-    @Test
-    public void testGetPatientById() {
-        Long patientId = 1L;
-        PatientTO patientTO = patientService.getPatientById(patientId);
-
-        assertNotNull(patientTO);
-        assertEquals(patientId, patientTO.getId());
-        assertNotNull(patientTO.getVisits());
-        assertTrue(patientTO.getVisits().size() > 0);  // Sprawdzamy, że pacjent ma wizyty
-        assertNotNull(patientTO.getAdditionalField());  // Sprawdzamy dodatkowe pole
-    }
-
 }

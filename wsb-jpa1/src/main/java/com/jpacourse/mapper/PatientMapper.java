@@ -83,11 +83,15 @@ public class PatientMapper {
         return new VisitTO(
                 visitEntity.getId(),
                 visitEntity.getTime(),
-                visitEntity.getDoctor().getFirstName(),  // Używamy firstName
-                visitEntity.getDoctor().getLastName(),   // Używamy lastName
-                visitEntity.getPatient().getFirstName(), // Dodanie pacjenta
+                visitEntity.getDoctor().getFirstName(),
+                visitEntity.getDoctor().getLastName(),
+                visitEntity.getPatient().getFirstName(),
                 visitEntity.getPatient().getLastName(),
-                treatmentTypes != null ? Collections.singletonList(treatmentTypes) : Collections.emptyList()// Przekazujemy listę typów zabiegów
+                visitEntity.getMedicalTreatment() != null ?
+                        Collections.singletonList(visitEntity.getMedicalTreatment().getType().toString()) :
+                        Collections.emptyList(),
+                visitEntity.getMedicalTreatment() != null ?
+                        visitEntity.getMedicalTreatment().getDescription() : null // Dodanie nazwy zabiegu
         );
     }
 

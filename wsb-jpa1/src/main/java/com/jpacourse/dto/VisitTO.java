@@ -13,12 +13,12 @@ public class VisitTO {
     private String patientFirstName;
     private String patientLastName;
     private List<String> treatmentTypes;
-
+    private String treatmentDescription;
 
     // Konstruktory
     public VisitTO() {}
 
-    public VisitTO(Long id, LocalDateTime visitTime, String doctorFirstName, String doctorLastName, String patientFirstName, String patientLastName, List<String> treatmentTypes) {
+    public VisitTO(Long id, LocalDateTime visitTime, String doctorFirstName, String doctorLastName, String patientFirstName, String patientLastName, List<String> treatmentTypes, String treatmentDescription) {
         this.id = id;
         this.visitTime = visitTime;
         this.description = description;
@@ -27,6 +27,7 @@ public class VisitTO {
         this.patientFirstName = patientFirstName;
         this.patientLastName = patientLastName;
         this.treatmentTypes = treatmentTypes;
+        this.treatmentDescription = treatmentDescription;
     }
 
     // Gettery i settery
@@ -96,6 +97,15 @@ public class VisitTO {
     public void setTreatmentTypes(List<String> treatmentTypes) {
         this.treatmentTypes = treatmentTypes;
     }
+
+    public String getTreatmentDescription() {
+        return treatmentDescription;
+    }
+
+    public void setTreatmentDescription(String treatmentDescription) {
+        this.treatmentDescription = treatmentDescription;
+    }
+
 
     public List<String> getMedicalTreatments() { return treatmentTypes; }
     public void setMedicalTreatments(List<String> medicalTreatments) { this.treatmentTypes = medicalTreatments; }
