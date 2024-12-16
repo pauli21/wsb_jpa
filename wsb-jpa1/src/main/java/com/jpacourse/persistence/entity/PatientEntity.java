@@ -54,7 +54,7 @@ public class PatientEntity {
 	 * Adres jest wymagany, dlatego atrybut {@code nullable} jest ustawiony na {@code false}.
 	 */
 	@ManyToOne
-	@JoinColumn(name = "address_id", nullable = false)
+	@JoinColumn(name = "address_id")
 	private AddressEntity address;
 
 	/**

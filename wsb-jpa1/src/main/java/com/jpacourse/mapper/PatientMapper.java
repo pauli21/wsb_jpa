@@ -1,29 +1,21 @@
 package com.jpacourse.mapper;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
-import com.jpacourse.persistence.entity.PatientEntity;
-import com.jpacourse.persistence.entity.VisitEntity;
 import com.jpacourse.dto.PatientTO;
 import com.jpacourse.dto.VisitTO;
-import org.springframework.stereotype.Component;
+import com.jpacourse.persistence.entity.PatientEntity;
+import com.jpacourse.persistence.entity.VisitEntity;
 
 import java.util.Collections;
 import java.util.stream.Collectors;
 
 
 
-@Component
+
 public class PatientMapper {
 
-    @Autowired
-    private VisitMapper visitMapper;
-
-    @Autowired
-    private AddressMapper addressMapper;
 
     // Mapowanie PatientEntity do PatientTO
-    public PatientTO toTransferObject(PatientEntity patientEntity) {
+    public static PatientTO toTransferObject(PatientEntity patientEntity) {
         PatientTO patientTO = new PatientTO();
 
         patientTO.setId(patientEntity.getId());
@@ -38,12 +30,12 @@ public class PatientMapper {
 
 
         patientTO.setVisits(patientEntity.getVisits().stream()
-                .map(this::toVisitTO)
+                .map(VisitMapper::toTO)
                 .collect(Collectors.toList()));
 
         // Mapowanie adresu
         if (patientEntity.getAddress() != null) {
-            patientTO.setAddress(addressMapper.mapToTO(patientEntity.getAddress()));
+            patientTO.setAddress(AddressMapper.mapToTO(patientEntity.getAddress()));
         }
 
         return patientTO;
@@ -52,14 +44,14 @@ public class PatientMapper {
 
 
     // Mapowanie PatientTO do PatientEntity
-    public PatientEntity toEntity(PatientTO patientTO) {
+    public static PatientEntity toEntity(PatientTO patientTO) {
         PatientEntity patientEntity = new PatientEntity();
         updateEntity(patientEntity, patientTO);
         return patientEntity;
     }
 
     // Aktualizacja istniejącego PatientEntity na podstawie PatientTO
-    public void updateEntity(PatientEntity patientEntity, PatientTO patientTO) {
+    public static void updateEntity(PatientEntity patientEntity, PatientTO patientTO) {
         patientEntity.setFirstName(patientTO.getFirstName());
         patientEntity.setLastName(patientTO.getLastName());
         patientEntity.setTelephoneNumber(patientTO.getTelephoneNumber());
@@ -68,7 +60,7 @@ public class PatientMapper {
         patientEntity.setDateOfBirth(patientTO.getDateOfBirth());
         patientEntity.setIsInsured(patientTO.getIsInsured());
         if (patientTO.getAddress() != null) {
-            patientEntity.setAddress(addressMapper.mapToEntity(patientTO.getAddress()));
+            patientEntity.setAddress(AddressMapper.mapToEntity(patientTO.getAddress()));
         }
     }
 

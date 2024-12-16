@@ -9,10 +9,10 @@ import java.util.Collections;
 import java.util.stream.Collectors;
 
 
-@Component
+
 public class VisitMapper {
 
-    public VisitTO toTO(VisitEntity visitEntity) {
+    public static VisitTO toTO(VisitEntity visitEntity) {
         VisitTO visitTO = new VisitTO();
         visitTO.setId(visitEntity.getId());
         visitTO.setVisitTime(visitEntity.getTime());

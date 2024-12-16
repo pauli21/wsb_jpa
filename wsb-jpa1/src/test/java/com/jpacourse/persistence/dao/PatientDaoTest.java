@@ -2,24 +2,25 @@ package com.jpacourse.persistence.dao;
 
 import com.jpacourse.persistence.entity.PatientEntity;
 import com.jpacourse.persistence.entity.VisitEntity;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
+import static org.assertj.core.api.Assertions.assertThat;
 import java.time.LocalDateTime;
-
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-@DataJpaTest
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class PatientDaoTest {
 
     @Autowired
     private PatientDao patientDao;
 
-    @Autowired
-    private EntityManager entityManager;
 
     @Test
     @Transactional
@@ -37,7 +38,7 @@ public class PatientDaoTest {
         patientDao.addVisit(patientId, doctorId, description, visitDate, treatmentId);  // Dodano treatmentId
 
         // Assert
-        PatientEntity patient = entityManager.find(PatientEntity.class, patientId);
+        PatientEntity patient = patientDao.findOne(patientId);
         assertNotNull(patient, "Patient should not be null");
         assertFalse(patient.getVisits().isEmpty(), "Patient should have visits");
 
@@ -49,11 +50,12 @@ public class PatientDaoTest {
 
     @Test
     @Transactional
-    public void testDeletePatient() {
+    public void testDeletePatient()
+    {
         Long patientId = 1L;
 //        patientDao.delete(patientId);
-        patientDao.deleteById(patientId);
+        patientDao.delete(patientId);
 
-        assertThrows(RuntimeException.class, () -> patientDao.findById(patientId).orElseThrow(() -> new RuntimeException("Patient not found")));
+        assertThat(patientDao.findOne(patientId)).isNull();
     }
 }
