@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.CascadeType;
 import java.util.List;
 import java.util.ArrayList;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "PATIENT")
@@ -22,6 +23,9 @@ public class PatientEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@Version
+	private Long version; // Pole wersji do obsługi optymistycznego blokowania
 
 	@Column(nullable = false)
 	private String firstName;
@@ -44,6 +48,13 @@ public class PatientEntity {
 	 * Nowe pole z ubezpieczeniem
 	 */
 	private Boolean isInsured;
+
+	/**
+	 * Nowa kolumna - wiek pacjenta
+	 */
+	@Column(nullable = false)
+	private Integer age;
+
 
 
 	/**
@@ -150,6 +161,22 @@ public class PatientEntity {
 
 	public void setVisits(List<VisitEntity> visits) {
 		this.visits = visits;
+	}
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
 	}
 
 }

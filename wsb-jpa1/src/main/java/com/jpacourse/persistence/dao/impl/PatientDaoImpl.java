@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 public class PatientDaoImpl extends AbstractDao<PatientEntity, Long> implements PatientDao {
@@ -41,4 +42,31 @@ public class PatientDaoImpl extends AbstractDao<PatientEntity, Long> implements 
         patient.getVisits().add(newVisit);
         entityManager.merge(patient);
     }
+
+    @Override
+    public List<PatientEntity> findByLastName(String lastName) {
+        String jpql = "SELECT p FROM PatientEntity p WHERE p.lastName = :lastName";
+        return entityManager.createQuery(jpql, PatientEntity.class)
+                .setParameter("lastName", lastName)
+                .getResultList();
+    }
+
+    @Override
+    public List<PatientEntity> findByVisitsGreaterThan(int visitCount) {
+        String jpql = "SELECT p FROM PatientEntity p WHERE SIZE(p.visits) > :visitCount";
+        return entityManager.createQuery(jpql, PatientEntity.class)
+                .setParameter("visitCount", visitCount)
+                .getResultList();
+    }
+
+    @Override
+    public List<PatientEntity> findByAgeGreaterThan(Integer age) {
+        String jpql = "SELECT p FROM PatientEntity p WHERE p.age > :age";
+        return entityManager.createQuery(jpql, PatientEntity.class)
+                .setParameter("age", age)
+                .getResultList();
+    }
+
+
+
 }

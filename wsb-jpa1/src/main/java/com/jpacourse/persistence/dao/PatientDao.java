@@ -10,10 +10,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
-
+import java.util.List;
 
 @Repository
 public interface PatientDao extends Dao<PatientEntity, Long> {
     void addVisit(Long patientId, Long doctorId, String visitDescription, LocalDateTime visitDate, Long treatmentId);
+    List<PatientEntity> findByLastName(String lastName);
+    List<PatientEntity> findByVisitsGreaterThan(int visitCount);
+    List<PatientEntity> findByAgeGreaterThan(Integer age);
 
 }
